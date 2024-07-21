@@ -2,7 +2,7 @@
 
 A modern, responsive Pokédex application built with Next.js, TypeScript, and Prisma.
 
-[Live Demo](https://your-vercel-link-here.vercel.app) <!-- Replace with your Vercel deployment link -->
+[Live Demo](https://pokedex-project-ten-alpha.vercel.app/pokedex-multi) <!-- Replace with your Vercel deployment link -->
 
 ## Features
 
@@ -70,7 +70,7 @@ npm run dev
 
 ## Deployment
 
-This project is deployed on Vercel. The live demo can be accessed [here](https://your-vercel-link-here.vercel.app).
+This project is deployed on Vercel. The live demo can be accessed [here](https://pokedex-project-ten-alpha.vercel.app/pokedex-multi).
 
 ## Contributing
 
