@@ -25,9 +25,9 @@ A modern, responsive Pokédex application built with Next.js, TypeScript, and Pr
 
 1. Clone the repository:
     
-    ```bash
+```bash
     git clone 
-    ```
+```
 
 2. Install dependencies:
 
