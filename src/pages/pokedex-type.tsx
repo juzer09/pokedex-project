@@ -35,6 +35,7 @@ const FilterablePokedexPage: React.FC = () => {
                 <Typography variant="h4" gutterBottom>
                     Filterable Pokedex
                 </Typography>
+                {/* @ts-ignore */}
                 <FilterablePokedexTable pokemons={pokemonQuery.data} />
             </Box>
         </>

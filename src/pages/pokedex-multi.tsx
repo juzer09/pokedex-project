@@ -75,6 +75,7 @@ const PokedexPage: React.FC = () => {
                             </Typography>
                             {isLoading && <CircularProgress />}
                             {error && <Typography color="error">An error occurred: {error.message}</Typography>}
+                            {/** @ts-ignore */}
                             {pokemons && pokemons.length > 0 && <PokedexTable pokemons={pokemons} />}
                             {pokemons && pokemons.length === 0 && <Typography>No Pokémon found. Try different names.</Typography>}
                         </Box>

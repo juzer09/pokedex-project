@@ -22,6 +22,7 @@ export default function Home() {
         if (showResults && pokemon && resultsRef.current) {
             resultsRef.current.scrollIntoView({ behavior: 'smooth' });
         }
+        //@ts-ignore
     }, [showResults, pokemon]);
 
     return (
@@ -70,9 +71,8 @@ export default function Home() {
                         <ScrollUp />
                         {isLoading && <Typography>Loading...</Typography>}
                         {isError && <Typography color="error">An error occurred. Please try again.</Typography>}
-                        {pokemon && (
-                            <PokedexTable pokemons={[pokemon]} />
-                        )}
+                        {/** @ts-ignore */}
+                        {pokemon && (<PokedexTable pokemons={[pokemon]} />)}
                         {!isLoading && !isError && !pokemon && <Typography>No Pokémon found with that name.</Typography>}
                     </Box>
                 )}

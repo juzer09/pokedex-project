@@ -40,7 +40,7 @@ const SinglePokemonPage: React.FC<SinglePokemonPageProps> = ({ pokemonName }) =>
                         <PokemonBaseStats stats={pokemon.stats} />
                     </Grid>
                     <Grid item xs={12}>
-                        <PokemonEvolutionChart evolutionChain={pokemon.evolutionChain} />
+                        {/* <PokemonEvolutionChart evolutionChain={pokemon.evolutionChain} /> */}
                     </Grid>
                     <Grid xs={12} md={6}>
                         <PokemonMoves moves={pokemon.moves} />

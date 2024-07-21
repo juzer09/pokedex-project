@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, CircularProgress } from '@mui/material';
 import { PokemonCard } from './PokemonCard';
 
 interface PokemonType {
@@ -22,29 +22,37 @@ interface PokemonAbility {
     url: string;
 }
 
-interface PokemonRowProps {
-    pokemon: {
-        id: number;
-        name: string;
-        types: PokemonType[];
-        sprite: string;
-        moves: PokemonMove[];
-        stats: PokemonStat[];
-        weight: number;
-        height: number;
-        cries: {
-            latest: string;
-            legacy: string;
-        };
-        abilities: PokemonAbility[];
+interface Pokemon {
+    id: number;
+    name: string;
+    types: PokemonType[];
+    sprite: string;
+    moves: PokemonMove[];
+    stats: PokemonStat[];
+    weight: number;
+    height: number;
+    cries: {
+        latest: string;
+        legacy: string;
     };
+    abilities: PokemonAbility[]; // Changed from pokemonAbilities to abilities
+    pokemonAbilities: boolean;
 }
 
-export const PokedexTable: React.FC<PokemonRowProps> = ({ pokemons }) => {
+interface PokedexTableProps {
+    pokemons: Pokemon[];
+}
+
+export const PokedexTable: React.FC<PokedexTableProps> = ({ pokemons }) => {
+    if (!pokemons || pokemons.length === 0) {
+        console.log('No pokemons');
+        return <CircularProgress />;
+    }
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2} justifyContent="center" sx={{ display: 'flex', flexWrap: 'wrap', gap: '16px', margin: 0, width: '100%' }}>
-                {pokemons.map((pokemon: any) => (
+                {pokemons.map((pokemon) => (
                     <Grid item key={pokemon.id} xs={12} sm={6} md={4} lg={3} className='pokemon__card-item' sx={{ maxWidth: 'none !important', pl: '0 !important', ml: 0, flexBasis: '24% !important' }}>
                         <PokemonCard pokemon={pokemon} />
                     </Grid>

@@ -147,40 +147,6 @@ export const pokemonRouter = router({
 			}
 		}),
 
-	getPokemonByType: publicProcedure
-		.input(z.string())
-		.query(async ({ ctx, input }) => {
-			const pokemons = await ctx.prisma.pokemon.findMany({
-				where: {
-					pokemonTypes: {
-						some: {
-							type: {
-								name: input,
-							},
-						},
-					},
-				},
-				include: {
-					pokemonTypes: {
-						include: { type: true },
-					},
-					pokemonAbilities: {
-						include: { ability: true },
-					},
-					stats: true,
-					sprite: true,
-				},
-			});
-
-			return pokemons.map((pokemon) => ({
-				id: pokemon.id,
-				name: pokemon.name,
-				types: pokemon.pokemonTypes.map((pt: any) => pt.type),
-				sprite: pokemon.sprite,
-				stats: pokemon.stats,
-			}));
-		}),
-
 	getAllTypes: publicProcedure.query(async ({ ctx }) => {
 		const types = await ctx.prisma.type.findMany({
 			distinct: ["name"],

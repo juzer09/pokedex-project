@@ -7,7 +7,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export const PokemonCard: React.FC<PokemonRowProps> = ({ pokemon }) => {
-    console.log(pokemon);
     return (
         <Box sx={{
             backgroundColor: '#ffffff08',
