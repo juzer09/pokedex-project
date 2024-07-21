@@ -1,0 +1,99 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Pokemon {
+  id               Int                @id @default(autoincrement())
+  name             String             @unique
+  height           Int
+  weight           Int
+  sprite           String
+  cries            Json?
+  evolutionChainId Int?
+  evolutionChain   EvolutionChain?    @relation(fields: [evolutionChainId], references: [id])
+  pokedexEntries   PokedexEntry[]
+  pokemonTypes     PokemonType[]
+  pokemonAbilities PokemonAbility[]
+  pokemonMoves     PokemonMove[]
+  stats            PokemonStat[]
+}
+
+model Type {
+  id       Int           @id @default(autoincrement())
+  name     String        @unique
+  url      String
+  pokemons PokemonType[]
+}
+
+model Ability {
+  id       Int               @id @default(autoincrement())
+  name     String            @unique
+  url      String
+  pokemons PokemonAbility[]
+}
+
+model Move {
+  id       Int           @id @default(autoincrement())
+  name     String        @unique
+  url      String
+  type     String
+  category String
+  power    Int?
+  accuracy Int?
+  pokemons PokemonMove[]
+}
+
+model PokemonType {
+  pokemon   Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemonId Int
+  type      Type    @relation(fields: [typeId], references: [id])
+  typeId    Int
+
+  @@id([pokemonId, typeId])
+}
+
+model PokemonAbility {
+  pokemon   Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemonId Int
+  ability   Ability @relation(fields: [abilityId], references: [id])
+  abilityId Int
+  isHidden  Boolean @default(false)
+
+  @@id([pokemonId, abilityId])
+}
+
+model PokemonMove {
+  pokemon   Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemonId Int
+  move      Move    @relation(fields: [moveId], references: [id])
+  moveId    Int
+
+  @@id([pokemonId, moveId])
+}
+
+model PokemonStat {
+  id        Int     @id @default(autoincrement())
+  name      String
+  value     Int
+  pokemon   Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemonId Int
+}
+
+model EvolutionChain {
+  id       Int       @id @default(autoincrement())
+  pokemons Pokemon[]
+}
+
+model PokedexEntry {
+  id        Int     @id @default(autoincrement())
+  entry     String
+  version   String
+  pokemon   Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemonId Int
+}
