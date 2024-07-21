@@ -133,11 +133,11 @@ export const calculateTypeEffectiveness = (
 	Object.keys(typeEffectiveness).forEach((attackType) => {
 		let multiplier = 1;
 		defenderTypes.forEach((defenderType) => {
+			let ds = defenderType.toLowerCase();
 			// @ts-ignore
-			let typeEffectiveness = typeEffectiveness[attackType];
-			if (typeEffectiveness[defenderType.toLowerCase()]) {
+			if (typeEffectiveness[attackType][ds]) {
 				// @ts-ignore
-				multiplier *= typeEffectiveness[defenderType.toLowerCase()];
+				multiplier *= typeEffectiveness[attackType][ds];
 			}
 		});
 		effectiveness[attackType] = multiplier;
