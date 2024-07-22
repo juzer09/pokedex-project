@@ -1,12 +1,24 @@
 import React from 'react';
-import { Box, Typography, Chip, Button, Avatar, IconButton } from '@mui/material';
+import { useRef, useEffect } from 'react';
+import { Box, Typography, Chip, Button, Avatar } from '@mui/material';
 import { PokemonRowProps } from './PokemonRowProps';
+import PokemonCry from './PokemonCry';
 import { capitalizeFirstLetterOfEachWord } from '@/inc/global-functions';
 import { typeColors } from './typeColors';
-import Image from 'next/image';
 import Link from 'next/link';
 
 export const PokemonCard: React.FC<PokemonRowProps> = ({ pokemon }) => {
+    const pokemonCryUrl = pokemon.cries.latest;
+    const audioRef = useRef(new Audio(pokemonCryUrl));
+
+    useEffect(() => {
+        audioRef.current.load();
+    }, [pokemonCryUrl]);
+
+    const playCry = () => {
+        audioRef.current.play().catch(error => console.error("Playback failed:", error));
+    };
+
     return (
         <Box sx={{
             backgroundColor: '#ffffff08',
@@ -87,14 +99,16 @@ export const PokemonCard: React.FC<PokemonRowProps> = ({ pokemon }) => {
                 </Box>
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: 'calc(100% + 32px)', margin: '0 -16px -16px' }}>
-                <Button
+                <audio ref={audioRef} src={pokemonCryUrl} preload="auto" />
+                <PokemonCry cryUrl={pokemon.cries.latest} />
+                {/* <Button
                     variant="contained"
                     endIcon={<span>🔊</span>}
                     sx={{ backgroundColor: '#333', '&:hover': { backgroundColor: '#444' }, flex: '1', width: '100%', display: 'flex', borderRadius: '0 0 0 12px', background: 'transparent', height: '36px', fontSize: '12px', gap: '8px', justifyContent: 'center', alignItems: 'center', color: 'white' }}
-                    onClick={() => new Audio(pokemon.cries.latest).play()}
+                    onClick={playCry}
                 >
                     Pokemon Cry
-                </Button>
+                </Button> */}
                 <Box sx={{ flex: '1' }}>
                     <Link href={`/pokemon/${pokemon.name}`} passHref className='block'>
                         <Button
